@@ -22,6 +22,10 @@ const toCircle = keyframes`
   }
 `;
 
+const Emoji = styled.span`
+  font-size: 48px;
+`;
+
 const Box = styled.div`
   width: 200px;
   height: 200px;
@@ -30,11 +34,9 @@ const Box = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  span {
-    font-size: 48px;
-    opacity: 0;
-    &:active {
-      opacity: 1;
+  ${Emoji} {
+    &:hover {
+      font-size: 96px;
     }
   }
 `;
@@ -43,8 +45,9 @@ function App() {
   return (
     <Wrapper>
       <Box>
-        <span>🤩</span>
+        <Emoji>🤩</Emoji>
       </Box>
+      <Emoji>🔥</Emoji>
     </Wrapper>
   );
 }
