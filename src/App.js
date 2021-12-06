@@ -10,11 +10,15 @@ const Box = styled.div`
   height: 200px;
 `;
 
+const Circle = styled(Box)`
+  border-radius: 100px;
+`;
+
 function App() {
   return (
     <Father>
       <Box backgroundColor="tomato" />
-      <Box backgroundColor="teal" />
+      <Circle backgroundColor="teal" />
     </Father>
   );
 }
