@@ -23,12 +23,24 @@ const Box = styled.div`
   height: 200px;
   background-color: teal;
   animation: ${toCircle} 1s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-size: 48px;
+    opacity: 0;
+    &:active {
+      opacity: 1;
+    }
+  }
 `;
 
 function App() {
   return (
     <Wrapper>
-      <Box />
+      <Box>
+        <span>🤩</span>
+      </Box>
     </Wrapper>
   );
 }
