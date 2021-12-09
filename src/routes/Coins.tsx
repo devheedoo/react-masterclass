@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -25,6 +26,36 @@ const Coin = styled.div`
   margin-bottom: 10px;
 `;
 
+const coinsSample = [
+  {
+    id: "btc-bitcoin",
+    name: "Bitcoin",
+    symbol: "BTC",
+    rank: 1,
+    is_new: false,
+    is_active: true,
+    type: "coin",
+  },
+  {
+    id: "eth-ethereum",
+    name: "Ethereum",
+    symbol: "ETH",
+    rank: 2,
+    is_new: false,
+    is_active: true,
+    type: "coin",
+  },
+  {
+    id: "bnb-binance-coin",
+    name: "Binance Coin",
+    symbol: "BNB",
+    rank: 3,
+    is_new: false,
+    is_active: true,
+    type: "coin",
+  },
+];
+
 function Coins() {
   return (
     <Container>
@@ -32,9 +63,11 @@ function Coins() {
         <Title>Coins</Title>
       </Header>
       <CoinList>
-        <Coin>BTC</Coin>
-        <Coin>BTC</Coin>
-        <Coin>BTC</Coin>
+        {coinsSample.map((coin) => (
+          <Coin key={coin.id}>
+            <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+          </Coin>
+        ))}
       </CoinList>
     </Container>
   );
