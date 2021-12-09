@@ -1,7 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface CircleProps {
   backgroundColor: string;
+  borderColor?: string;
+  text?: string;
 }
 
 const Container = styled.div<CircleProps>`
@@ -9,10 +11,18 @@ const Container = styled.div<CircleProps>`
   height: 200px;
   border-radius: 100px;
   background-color: ${(props) => props.backgroundColor};
+  border: 5px solid ${(props) => props.borderColor ?? props.backgroundColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-function Circle({ backgroundColor }: CircleProps) {
-  return <Container backgroundColor={backgroundColor} />;
+function Circle({ backgroundColor, borderColor, text }: CircleProps) {
+  return (
+    <Container backgroundColor={backgroundColor} borderColor={borderColor}>
+      {text ?? "NO TEXT"}
+    </Container>
+  );
 }
 
 export default Circle;
