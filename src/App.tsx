@@ -1,5 +1,21 @@
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: ${(props) => props.theme.backgroundColor};
+`;
+
+const H1 = styled.h1`
+  color: ${(props) => props.theme.textColor};
+`;
+
 function App() {
-  return null;
+  return (
+    <div>
+      <Container>
+        <H1>Hello~</H1>
+      </Container>
+    </div>
+  );
 }
 
 export default App;
