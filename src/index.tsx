@@ -4,8 +4,9 @@ import { DefaultTheme, ThemeProvider } from "styled-components";
 import App from "./App";
 
 const theme: DefaultTheme = {
-  textColor: "black",
-  backgroundColor: "white",
+  backgroundColor: "#7f8c8d",
+  textColor: "#ecf0f1",
+  accentColor: "#f1c40f",
 };
 
 ReactDOM.render(

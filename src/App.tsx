@@ -31,6 +31,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     line-height: 1;
     font-family: 'Ubuntu', sans-serif;
+    background-color: ${(props) => props.theme.backgroundColor};
+    color: ${(props) => props.theme.textColor};
   }
   ol, ul {
     list-style: none;
