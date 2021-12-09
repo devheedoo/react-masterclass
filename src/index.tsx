@@ -3,19 +3,14 @@ import ReactDOM from "react-dom";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import App from "./App";
 
-const lightTheme: DefaultTheme = {
+const theme: DefaultTheme = {
   textColor: "black",
   backgroundColor: "white",
 };
 
-const darkTheme: DefaultTheme = {
-  textColor: "white",
-  backgroundColor: "black",
-};
-
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
   </React.StrictMode>,
