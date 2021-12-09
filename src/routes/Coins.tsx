@@ -1,11 +1,43 @@
 import styled from "styled-components";
 
-const H1 = styled.h1`
-  color: ${(props) => props.theme.accentColor};
+const Container = styled.div`
+  padding: 10px 20px;
+`;
+
+const Header = styled.header`
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Title = styled.h1`
+  font-size: 40px;
+`;
+
+const CoinList = styled.ul``;
+
+const Coin = styled.div`
+  background-color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.backgroundColor};
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 10px;
 `;
 
 function Coins() {
-  return <H1>Coins</H1>;
+  return (
+    <Container>
+      <Header>
+        <Title>Coins</Title>
+      </Header>
+      <CoinList>
+        <Coin>BTC</Coin>
+        <Coin>BTC</Coin>
+        <Coin>BTC</Coin>
+      </CoinList>
+    </Container>
+  );
 }
 
 export default Coins;
