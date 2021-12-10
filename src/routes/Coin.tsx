@@ -41,7 +41,8 @@ function Coin() {
   return (
     <Container>
       <Header>
-        <Title>{state.name}</Title>
+        {/* React Route로 전달 받기 때문에 직접 URL 접근 시 값이 없음 */}
+        <Title>{state?.name ?? "Loading"}</Title>
       </Header>
       {isLoading ? <Loader>Loading...</Loader> : null}
     </Container>
