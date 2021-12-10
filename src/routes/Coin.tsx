@@ -35,6 +35,7 @@ const Overview = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  margin: 5px 0px;
 `;
 
 const OverviewItem = styled.div`
@@ -50,6 +51,27 @@ const OverviewItem = styled.div`
 
 const Description = styled.p`
   padding: 10px 20px;
+`;
+
+const Tabs = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Tab = styled.div`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 5px;
+  a {
+    display: block;
+    padding: 10px 20px;
+  }
 `;
 
 interface RouteParams {
@@ -164,8 +186,14 @@ function Coin() {
             </OverviewItem>
           </Overview>
 
-          <Link to={`/${coinId}/price`}>Price</Link>
-          <Link to={`/${coinId}/chart`}>Chart</Link>
+          <Tabs>
+            <Tab>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+            <Tab>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+          </Tabs>
 
           <Switch>
             <Route path={`/:coinId/price`}>
