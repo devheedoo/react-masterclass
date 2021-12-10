@@ -76,7 +76,14 @@ function Coins() {
           ? "Loading..."
           : coins.map((coin) => (
               <Coin key={coin.id}>
-                <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+                <Link
+                  to={{
+                    pathname: `/${coin.id}`,
+                    state: { name: coin.name },
+                  }}
+                >
+                  {coin.name} &rarr;
+                </Link>
               </Coin>
             ))}
       </CoinList>
