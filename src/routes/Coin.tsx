@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import {
   Route,
   Switch,
+  useHistory,
   useLocation,
   useParams,
   useRouteMatch,
@@ -153,11 +154,14 @@ function Coin() {
   const title =
     state?.name ?? (isLoading ? <Loader>Loading...</Loader> : coin?.name);
 
+  const history = useHistory();
+
   return (
     <Container>
       <Helmet>
         <title>{title}</title>
       </Helmet>
+      <button onClick={history.goBack}>Back</button>
       <Header>
         {/* React Route로 전달 받기 때문에 직접 URL 접근 시 값이 없음 */}
         <Title>{title}</Title>
