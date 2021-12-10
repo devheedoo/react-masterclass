@@ -52,6 +52,12 @@ const Coin = styled.div`
   }
 `;
 
+const CoinImage = styled.img`
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+`;
+
 function Coins() {
   const [coins, setCoins] = useState<CoinInterface[]>([]);
   const [isLoading, setLoading] = useState(true);
@@ -82,6 +88,9 @@ function Coins() {
                     state: { name: coin.name },
                   }}
                 >
+                  <CoinImage
+                    src={`https://cryptoicon-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
+                  />
                   {coin.name} &rarr;
                 </Link>
               </Coin>
