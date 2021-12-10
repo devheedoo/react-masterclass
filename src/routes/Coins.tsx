@@ -14,6 +14,8 @@ interface CoinInterface {
 
 const Container = styled.div`
   padding: 10px 20px;
+  max-width: 480px;
+  margin: 0 auto;
 `;
 
 const Header = styled.header`
@@ -28,6 +30,11 @@ const Title = styled.h1`
 `;
 
 const CoinList = styled.ul``;
+
+const Loader = styled.div`
+  display: block;
+  text-align: center;
+`;
 
 const Coin = styled.div`
   background-color: ${(props) => props.theme.textColor};
@@ -66,7 +73,7 @@ function Coins() {
       </Header>
       <CoinList>
         {isLoading
-          ? "isLoading..."
+          ? "Loading..."
           : coins.map((coin) => (
               <Coin key={coin.id}>
                 <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
