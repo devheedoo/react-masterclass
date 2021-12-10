@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Route, Switch, useLocation, useParams } from "react-router";
+import {
+  Route,
+  Switch,
+  useLocation,
+  useParams,
+  useRouteMatch,
+} from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Chart from "./Chart";
@@ -59,15 +65,16 @@ const Tabs = styled.div`
   align-items: center;
 `;
 
-const Tab = styled.div`
+const Tab = styled.div<{ isActive: boolean }>`
   flex: 1;
   justify-content: center;
   align-items: center;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.4);
-  padding: 10px 20px;
   border-radius: 10px;
   margin: 5px;
+  color: ${(props) =>
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
   a {
     display: block;
     padding: 10px 20px;
@@ -133,6 +140,8 @@ function Coin() {
 
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
+  const matchesPrice = useRouteMatch("/:coinId/price");
+  const matchesChart = useRouteMatch("/:coinId/chart");
 
   useEffect(() => {
     (async () => {
@@ -187,10 +196,10 @@ function Coin() {
           </Overview>
 
           <Tabs>
-            <Tab>
+            <Tab isActive={matchesPrice !== null}>
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
-            <Tab>
+            <Tab isActive={matchesChart !== null}>
               <Link to={`/${coinId}/chart`}>Chart</Link>
             </Tab>
           </Tabs>
