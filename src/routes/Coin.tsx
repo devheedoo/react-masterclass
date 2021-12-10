@@ -24,6 +24,31 @@ const Loader = styled.div`
   text-align: center;
 `;
 
+const Overview = styled.div`
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+`;
+
+const OverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  span:first-child {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+`;
+
+const Description = styled.p`
+  padding: 10px 20px;
+`;
+
 interface RouteParams {
   coinId: string;
 }
@@ -104,7 +129,37 @@ function Coin() {
         {/* React Route로 전달 받기 때문에 직접 URL 접근 시 값이 없음 */}
         <Title>{state?.name ?? "Loading"}</Title>
       </Header>
-      {isLoading ? <Loader>Loading...</Loader> : null}
+      {isLoading ? (
+        <Loader>Loading...</Loader>
+      ) : (
+        <>
+          <Overview>
+            <OverviewItem>
+              <span>Rank</span>
+              <span>{coin?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Symbol</span>
+              <span>{coin?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Open Source</span>
+              <span>{coin?.open_source ? "true" : "false"}</span>
+            </OverviewItem>
+          </Overview>
+          <Description>{coin?.description}</Description>
+          <Overview>
+            <OverviewItem>
+              <span>Total Supply</span>
+              <span>{ticker?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Max Supply</span>
+              <span>{ticker?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+        </>
+      )}
     </Container>
   );
 }
