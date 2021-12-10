@@ -162,7 +162,8 @@ function Coin() {
       <Header>
         {/* React Route로 전달 받기 때문에 직접 URL 접근 시 값이 없음 */}
         <Title>
-          {state?.name ?? isLoading ? <Loader>Loading...</Loader> : coin?.name}
+          {state?.name ??
+            (isLoading ? <Loader>Loading...</Loader> : coin?.name)}
         </Title>
       </Header>
       {isLoading ? (
