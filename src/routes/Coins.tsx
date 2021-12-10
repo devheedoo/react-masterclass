@@ -1,31 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Container = styled.div`
-  padding: 10px 20px;
-`;
-
-const Header = styled.header`
-  height: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Title = styled.h1`
-  font-size: 40px;
-`;
-
-const CoinList = styled.ul``;
-
-const Coin = styled.div`
-  background-color: ${(props) => props.theme.textColor};
-  color: ${(props) => props.theme.backgroundColor};
-  padding: 20px;
-  border-radius: 15px;
-  margin-bottom: 10px;
-`;
-
 const coinsSample = [
   {
     id: "btc-bitcoin",
@@ -55,6 +30,39 @@ const coinsSample = [
     type: "coin",
   },
 ];
+
+const Container = styled.div`
+  padding: 10px 20px;
+`;
+
+const Header = styled.header`
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Title = styled.h1`
+  font-size: 40px;
+`;
+
+const CoinList = styled.ul``;
+
+const Coin = styled.div`
+  background-color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.backgroundColor};
+  border-radius: 15px;
+  margin-bottom: 10px;
+  a {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease-in;
+    &:hover {
+      color: ${(props) => props.theme.accentColor};
+    }
+  }
+`;
 
 function Coins() {
   return (

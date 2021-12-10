@@ -51,6 +51,7 @@ const GlobalStyle = createGlobalStyle`
   }
   a {
     text-decoration: none;
+    color: ${(props) => props.theme.backgroundColor}
   }
   * {
     box-sizing: border-box;
