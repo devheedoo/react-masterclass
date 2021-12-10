@@ -1,6 +1,8 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { darkTheme, lightTheme, ThemeName } from "./configs/theme";
+import { useState } from "react";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
@@ -59,13 +61,38 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+const ThemeToggleButton = styled.button`
+  background-color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.backgroundColor};
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+`;
+
 function App() {
+  const [theme, setTheme] = useState<ThemeName>(ThemeName.DARK);
+  const toggleTheme = () => {
+    if (theme === ThemeName.LIGHT) setTheme(ThemeName.DARK);
+    else if (theme === ThemeName.DARK) setTheme(ThemeName.LIGHT);
+  };
+
   return (
-    <>
+    <ThemeProvider theme={theme === ThemeName.LIGHT ? lightTheme : darkTheme}>
+      <ButtonWrapper>
+        <ThemeToggleButton onClick={toggleTheme}>
+          Toggle theme
+        </ThemeToggleButton>
+      </ButtonWrapper>
       <GlobalStyle />
       <Router />
       <ReactQueryDevtools initialIsOpen={true} />
-    </>
+    </ThemeProvider>
   );
 }
 
