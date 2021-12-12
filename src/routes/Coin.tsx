@@ -159,12 +159,12 @@ function Coin() {
   return (
     <Container>
       <Helmet>
-        <title>{title}</title>
+        <title>{`${title}`}</title>
       </Helmet>
       <button onClick={history.goBack}>Back</button>
       <Header>
         {/* React Route로 전달 받기 때문에 직접 URL 접근 시 값이 없음 */}
-        <Title>{title}</Title>
+        <Title>{`${title}`}</Title>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
