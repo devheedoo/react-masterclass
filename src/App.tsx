@@ -76,14 +76,13 @@ const ThemeToggleButton = styled.button`
 `;
 
 function App() {
-  const [theme, setTheme] = useState<ThemeName>(ThemeName.DARK);
+  const [usesDarkTheme, toggleDarkTheme] = useState<boolean>(true);
   const toggleTheme = () => {
-    if (theme === ThemeName.LIGHT) setTheme(ThemeName.DARK);
-    else if (theme === ThemeName.DARK) setTheme(ThemeName.LIGHT);
+    toggleDarkTheme((usesDarkTheme) => !usesDarkTheme);
   };
 
   return (
-    <ThemeProvider theme={theme === ThemeName.LIGHT ? lightTheme : darkTheme}>
+    <ThemeProvider theme={usesDarkTheme ? darkTheme : lightTheme}>
       <ButtonWrapper>
         <ThemeToggleButton onClick={toggleTheme}>
           Toggle theme
