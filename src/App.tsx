@@ -1,9 +1,4 @@
-import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
-import Router from "./Router";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { darkTheme, lightTheme } from "./configs/theme";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { usesDarkThemeAtom } from "./atoms";
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
@@ -62,36 +57,11 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-`;
-
-const ThemeToggleButton = styled.button`
-  background-color: ${(props) => props.theme.textColor};
-  color: ${(props) => props.theme.backgroundColor};
-  padding: 10px;
-  margin: 10px;
-  border-radius: 10px;
-`;
-
 function App() {
-  const usesDarkTheme = useRecoilValue(usesDarkThemeAtom);
-  const toggleUsesDarkTheme = useSetRecoilState(usesDarkThemeAtom);
-  const handleClick = () => toggleUsesDarkTheme((current) => !current);
-
   return (
-    <ThemeProvider theme={usesDarkTheme ? darkTheme : lightTheme}>
-      <ButtonWrapper>
-        <ThemeToggleButton onClick={handleClick}>
-          Toggle theme
-        </ThemeToggleButton>
-      </ButtonWrapper>
+    <>
       <GlobalStyle />
-      <Router />
-      <ReactQueryDevtools initialIsOpen={true} />
-    </ThemeProvider>
+    </>
   );
 }
 
