@@ -1,8 +1,9 @@
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { darkTheme, lightTheme, ThemeName } from "./configs/theme";
-import { useState } from "react";
+import { darkTheme, lightTheme } from "./configs/theme";
+import { useRecoilValue } from "recoil";
+import { usesDarkThemeAtom } from "./atoms";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
@@ -76,17 +77,12 @@ const ThemeToggleButton = styled.button`
 `;
 
 function App() {
-  const [usesDarkTheme, toggleDarkTheme] = useState<boolean>(true);
-  const toggleTheme = () => {
-    toggleDarkTheme((usesDarkTheme) => !usesDarkTheme);
-  };
+  const usesDarkTheme = useRecoilValue(usesDarkThemeAtom);
 
   return (
     <ThemeProvider theme={usesDarkTheme ? darkTheme : lightTheme}>
       <ButtonWrapper>
-        <ThemeToggleButton onClick={toggleTheme}>
-          Toggle theme
-        </ThemeToggleButton>
+        <ThemeToggleButton>Toggle theme</ThemeToggleButton>
       </ButtonWrapper>
       <GlobalStyle />
       <Router />
