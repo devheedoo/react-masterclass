@@ -2,7 +2,7 @@ import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { darkTheme, lightTheme } from "./configs/theme";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { usesDarkThemeAtom } from "./atoms";
 
 const GlobalStyle = createGlobalStyle`
@@ -78,11 +78,15 @@ const ThemeToggleButton = styled.button`
 
 function App() {
   const usesDarkTheme = useRecoilValue(usesDarkThemeAtom);
+  const toggleUsesDarkTheme = useSetRecoilState(usesDarkThemeAtom);
+  const handleClick = () => toggleUsesDarkTheme((current) => !current);
 
   return (
     <ThemeProvider theme={usesDarkTheme ? darkTheme : lightTheme}>
       <ButtonWrapper>
-        <ThemeToggleButton>Toggle theme</ThemeToggleButton>
+        <ThemeToggleButton onClick={handleClick}>
+          Toggle theme
+        </ThemeToggleButton>
       </ButtonWrapper>
       <GlobalStyle />
       <Router />
