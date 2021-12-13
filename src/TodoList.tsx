@@ -1,28 +1,18 @@
-import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 function TodoList() {
-  const [todo, setTodo] = useState("");
-  const [todoError, setTodoError] = useState("");
-
-  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setTodoError("");
-    setTodo(event.currentTarget.value);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (todo.length <= 10) {
-      return setTodoError("todo should be longer than 10");
-    }
-    console.log(todo);
-  };
+  const { register, watch } = useForm();
+  console.log(watch());
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input onChange={handleChange} placeholder="Add a todo" />
+      <form>
+        <input {...register("name")} placeholder="Add a name" />
+        <input {...register("age")} placeholder="Add a age" />
+        <input {...register("firstName")} placeholder="Add a first name" />
+        <input {...register("lastName")} placeholder="Add a last name" />
+        <input {...register("todo")} placeholder="Add a todo" />
         <button>add</button>
-        {todoError !== "" ? todoError : null}
       </form>
     </div>
   );
