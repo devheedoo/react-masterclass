@@ -1,8 +1,7 @@
 import { useForm } from "react-hook-form";
 
 function TodoList() {
-  const { register, watch } = useForm();
-  console.log(watch());
+  const { register } = useForm();
 
   return (
     <div>
