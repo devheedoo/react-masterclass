@@ -8,7 +8,14 @@ interface IForm {
 interface ITodo {
   id: number; // using Date
   text: string;
-  status: 'TODO' | 'DOING' | 'IN_REVIEW' | 'DONE';
+  status: TodoStatus;
+}
+
+enum TodoStatus {
+  TODO = 'todo',
+  DOING = 'doing',
+  IN_REVIEW = 'in_review',
+  DONE = 'done',
 }
 
 const todosAtom = atom<ITodo[]>({
@@ -25,7 +32,7 @@ function TodoList() {
     const newTodo: ITodo = {
       id: new Date().getTime(),
       text: todo,
-      status: 'TODO',
+      status: TodoStatus.TODO,
     };
     setTodos((currentTodos) => [newTodo, ...currentTodos]);
     setValue('todo', '');
