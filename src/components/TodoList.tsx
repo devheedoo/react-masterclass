@@ -1,27 +1,10 @@
 import { useForm } from 'react-hook-form';
-import { atom, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
+import { ITodo, todosAtom, TodoStatus } from '../atoms/todosAtom';
 
 interface IForm {
   todo: string;
 }
-
-interface ITodo {
-  id: number; // using Date
-  text: string;
-  status: TodoStatus;
-}
-
-enum TodoStatus {
-  TODO = 'todo',
-  DOING = 'doing',
-  IN_REVIEW = 'in_review',
-  DONE = 'done',
-}
-
-const todosAtom = atom<ITodo[]>({
-  key: 'todos',
-  default: [],
-});
 
 function TodoList() {
   const [todos, setTodos] = useRecoilState(todosAtom);
