@@ -1,10 +1,10 @@
-import { useRecoilValue } from 'recoil';
-import { statusesAtom } from '../states/statusAtom';
-import { todosSelector } from '../states/todosSelector';
+import { useRecoilState } from 'recoil';
+import { DEFAULT_STATUSES, statusesAtom } from '../states/statusAtom';
+import { todosAtom } from '../states/todosAtom';
 
 function SaveAndClearLocalStorage() {
-  const todos = useRecoilValue(todosSelector);
-  const statuses = useRecoilValue(statusesAtom);
+  const [todos, setTodos] = useRecoilState(todosAtom);
+  const [statuses, setStatuses] = useRecoilState(statusesAtom);
 
   const saveTodosOnLocalStorage = (
     event: React.FormEvent<HTMLButtonElement>
@@ -14,9 +14,13 @@ function SaveAndClearLocalStorage() {
     window.localStorage.setItem('statuses', JSON.stringify(statuses));
   };
 
-  const clearLocalStorage = (event: React.FormEvent<HTMLButtonElement>) => {
+  const clearAllWithLocalStorage = (
+    event: React.FormEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
     window.localStorage.clear();
+    setTodos([]);
+    setStatuses(DEFAULT_STATUSES);
   };
 
   return (
@@ -24,7 +28,9 @@ function SaveAndClearLocalStorage() {
       <button onClick={saveTodosOnLocalStorage}>
         Save todos on LocalStorage
       </button>
-      <button onClick={clearLocalStorage}>Clear LocalStorage</button>
+      <button onClick={clearAllWithLocalStorage}>
+        Clear all with LocalStorage
+      </button>
     </div>
   );
 }
