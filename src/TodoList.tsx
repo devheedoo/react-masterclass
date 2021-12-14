@@ -1,11 +1,19 @@
 import { useForm } from 'react-hook-form';
 
+interface IForm {
+  userId: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+}
+
 function TodoList() {
-  const { register, handleSubmit, formState } = useForm();
-  const onValid = (data: any) => {
+  const { register, handleSubmit, formState } = useForm<IForm>();
+  const onValid = (data: IForm) => {
     console.log(data);
   };
-  console.log(formState.errors);
 
   return (
     <div>
@@ -27,6 +35,7 @@ function TodoList() {
           })}
           placeholder="ID"
         />
+        <span>{formState.errors?.userId?.message}</span>
         <input
           {...register('password', {
             required: 'Password is required',
@@ -39,8 +48,10 @@ function TodoList() {
               message: 'Only alphabet and number are allowed for password',
             },
           })}
+          type="password"
           placeholder="password"
         />
+        <span>{formState.errors?.password?.message}</span>
         <input
           {...register('firstName', {
             required: 'first name is required',
@@ -51,6 +62,7 @@ function TodoList() {
           })}
           placeholder="first name"
         />
+        <span>{formState.errors?.firstName?.message}</span>
         <input
           {...register('lastName', {
             required: 'last name is required',
@@ -61,6 +73,7 @@ function TodoList() {
           })}
           placeholder="last name"
         />
+        <span>{formState.errors?.lastName?.message}</span>
         <input
           {...register('email', {
             required: 'Email is required',
@@ -71,6 +84,7 @@ function TodoList() {
           })}
           placeholder="email"
         />
+        <span>{formState.errors?.email?.message}</span>
         <input
           {...register('username', {
             required: 'Username is required',
@@ -85,6 +99,7 @@ function TodoList() {
           })}
           placeholder="username"
         />
+        <span>{formState.errors?.username?.message}</span>
         <button>add</button>
       </form>
     </div>
