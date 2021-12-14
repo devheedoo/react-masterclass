@@ -126,6 +126,12 @@ function TodoList() {
               value: /^[A-Za-z0-9]+$/,
               message: 'Only alphabet and number are allowed for username',
             },
+            validate: {
+              noAdmin: (username) =>
+                username.includes('admin') ? 'no admins allowed' : true,
+              noDev: (username) =>
+                username.includes('dev') ? 'no devs allowed' : true,
+            },
           })}
           placeholder="username"
         />
