@@ -8,9 +8,11 @@ interface IForm {
   lastName: string;
   email: string;
   username: string;
+  serverError?: string;
 }
 
 const EMAIL_DOMAIN_ALLOWED = '@gmail.com';
+const IS_API_SERVER_LIVE = true;
 
 function TodoList() {
   const { register, handleSubmit, formState, setError } = useForm<IForm>({
@@ -25,6 +27,9 @@ function TodoList() {
         { message: 're-password should match password' },
         { shouldFocus: true }
       );
+    }
+    if (!IS_API_SERVER_LIVE) {
+      setError('serverError', { message: 'API server is not working' });
     }
   };
 
