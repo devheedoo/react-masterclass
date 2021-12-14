@@ -19,7 +19,11 @@ function CreateTodo() {
       text: todo,
       status,
     };
-    setTodos((currentTodos) => [newTodo, ...currentTodos]);
+    setTodos((currentTodos) => {
+      const newTodos = [newTodo, ...currentTodos];
+      window.localStorage.setItem('todos', JSON.stringify(newTodos));
+      return newTodos;
+    });
     setValue('todo', '');
   };
   return (

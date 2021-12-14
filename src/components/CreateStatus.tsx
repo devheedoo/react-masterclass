@@ -11,7 +11,9 @@ function CreateStatus() {
   const { register, handleSubmit, setValue, formState } = useForm<IForm>();
   const handleValid = ({ status }: IForm) => {
     console.log('Add:', status);
-    setStatuses([...statuses, status]);
+    const newStatuses = [...statuses, status];
+    window.localStorage.setItem('statuses', JSON.stringify(newStatuses));
+    setStatuses(newStatuses);
     setValue('status', '');
   };
   return (
