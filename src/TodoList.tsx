@@ -21,7 +21,7 @@ function TodoList() {
               message: 'Length of first name should be longer than 4',
             },
             pattern: {
-              value: /^[A-Za-z0-9]$/,
+              value: /^[A-Za-z0-9]+$/,
               message: 'Only alphabet and number are allowed for ID',
             },
           })}
@@ -35,7 +35,7 @@ function TodoList() {
               message: 'Length of first name should be longer than 7',
             },
             pattern: {
-              value: /^[A-Za-z0-9]$/,
+              value: /^[A-Za-z0-9]+$/,
               message: 'Only alphabet and number are allowed for password',
             },
           })}
@@ -45,7 +45,7 @@ function TodoList() {
           {...register('firstName', {
             required: 'first name is required',
             pattern: {
-              value: /^[A-Za-z0-9]$/,
+              value: /^[A-Za-z0-9]+$/,
               message: 'Only alphabet and number are allowed for first name',
             },
           })}
@@ -55,7 +55,7 @@ function TodoList() {
           {...register('lastName', {
             required: 'last name is required',
             pattern: {
-              value: /^[A-Za-z0-9]$/,
+              value: /^[A-Za-z0-9]+$/,
               message: 'Only alphabet and number are allowed for last name',
             },
           })}
@@ -79,7 +79,7 @@ function TodoList() {
               message: 'Length of name should be longer than 4',
             },
             pattern: {
-              value: /^[A-Za-z0-9]$/,
+              value: /^[A-Za-z0-9]+$/,
               message: 'Only alphabet and number are allowed for username',
             },
           })}
