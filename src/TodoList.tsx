@@ -9,8 +9,14 @@ interface IForm {
   username: string;
 }
 
+const EMAIL_DOMAIN_ALLOWED = '@gmail.com';
+
 function TodoList() {
-  const { register, handleSubmit, formState } = useForm<IForm>();
+  const { register, handleSubmit, formState } = useForm<IForm>({
+    defaultValues: {
+      email: EMAIL_DOMAIN_ALLOWED,
+    },
+  });
   const onValid = (data: IForm) => {
     console.log(data);
   };
