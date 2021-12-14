@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface IForm {
@@ -15,17 +16,22 @@ const EMAIL_DOMAIN_ALLOWED = '@gmail.com';
 const IS_API_SERVER_LIVE = true;
 
 function TodoList() {
-  const { register, handleSubmit, formState, setError, getValues } =
+  const { register, handleSubmit, formState, setError, getValues, trigger } =
     useForm<IForm>({
       defaultValues: {
         email: EMAIL_DOMAIN_ALLOWED,
       },
     });
+
   const onValid = (inputValues: IForm) => {
     if (!IS_API_SERVER_LIVE) {
       setError('serverError', { message: 'API server is not working' });
     }
   };
+
+  useEffect(() => {
+    trigger();
+  }, []);
 
   return (
     <div>
