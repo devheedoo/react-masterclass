@@ -1,14 +1,22 @@
-import React from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { statusAtom, statusesAtom } from '../states/statusAtom';
+import React, { useEffect } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  DEFAULT_STATUSES,
+  statusAtom,
+  statusesAtom,
+} from '../states/statusAtom';
+import { todosAtom } from '../states/todosAtom';
 import { todosSelector } from '../states/todosSelector';
 import CreateStatus from './CreateStatus';
 import CreateTodo from './CreateTodo';
+import SaveAndClearLocalStorage from './SaveAndClearLocalStorage';
 import Todo from './Todo';
 
 function TodoList() {
   const todos = useRecoilValue(todosSelector);
-  const statuses = useRecoilValue(statusesAtom);
+  const setTodos = useSetRecoilState(todosAtom);
+  const [statuses, setStatuses] = useRecoilState(statusesAtom);
+
   const setStatus = useSetRecoilState(statusAtom);
   const handleInput = (event: React.FormEvent<HTMLSelectElement>) => {
     const {
@@ -17,9 +25,27 @@ function TodoList() {
     setStatus(value);
   };
 
+  const loadSavedTodos = async () => {
+    const savedTodos = JSON.parse(window.localStorage.getItem('todos') ?? '[]');
+    const savedStatuses = JSON.parse(
+      window.localStorage.getItem('statuses') ?? '[]'
+    );
+    console.log('savedTodos:', savedTodos);
+    console.log('statuses:', savedStatuses);
+    setTodos(savedTodos);
+    savedStatuses.length > 0
+      ? setStatuses(savedStatuses)
+      : setStatuses(DEFAULT_STATUSES);
+  };
+
+  useEffect(() => {
+    loadSavedTodos();
+  }, []);
+
   return (
     <div>
       <h1>TODOLIST</h1>
+      <SaveAndClearLocalStorage />
       <CreateStatus />
       <select onInput={handleInput}>
         {statuses.map((status) => (
