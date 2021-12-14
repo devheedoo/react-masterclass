@@ -18,15 +18,16 @@ export const todosAtom = atom<ITodo[]>({
   default: [],
 });
 
-export const todosSelector = selector<ITodo[][]>({
+export const statusAtom = atom<TodoStatus>({
+  key: 'status',
+  default: TodoStatus.TODO,
+});
+
+export const todosSelector = selector<ITodo[]>({
   key: 'todosSelector',
   get: ({ get }) => {
     const todos = get(todosAtom);
-    return [
-      todos.filter((todo) => todo.status === TodoStatus.TODO),
-      todos.filter((todo) => todo.status === TodoStatus.DOING),
-      todos.filter((todo) => todo.status === TodoStatus.IN_REVIEW),
-      todos.filter((todo) => todo.status === TodoStatus.DONE),
-    ];
+    const status = get(statusAtom);
+    return todos.filter((todo) => todo.status === status);
   },
 });
