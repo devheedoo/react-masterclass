@@ -1,11 +1,17 @@
 import { useForm } from 'react-hook-form';
 
 function TodoList() {
-  const { register } = useForm();
+  const { register, handleSubmit } = useForm();
+  const onValid = (data: any) => {
+    console.log(data);
+  };
 
   return (
     <div>
-      <form style={{ display: 'flex', flexDirection: 'column' }}>
+      <form
+        style={{ display: 'flex', flexDirection: 'column' }}
+        onSubmit={handleSubmit(onValid)}
+      >
         <input {...register('name')} placeholder="Add a name" />
         <input {...register('age')} placeholder="Add a age" />
         <input {...register('firstName')} placeholder="Add a first name" />
