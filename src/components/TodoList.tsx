@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { statusAtom, todosSelector } from '../atoms/todosAtom';
+import { statusAtom } from '../states/statusAtom';
+import { todosSelector } from '../states/todosSelector';
 import CreateTodo from './CreateTodo';
 import Todo from './Todo';
 

@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-import { ITodo, todosAtom } from '../atoms/todosAtom';
+import { ITodo } from '../interfaces';
+import { todosAtom } from '../states/todosAtom';
 
 interface IForm {
   todo: string;

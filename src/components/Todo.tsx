@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
-import { ITodo, todosAtom } from '../atoms/todosAtom';
+import { ITodo } from '../interfaces';
+import { todosAtom } from '../states/todosAtom';
 
 function Todo({ id, text, status }: ITodo) {
   const setTodos = useSetRecoilState(todosAtom);
