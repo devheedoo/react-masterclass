@@ -2,6 +2,7 @@ import React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { statusAtom, statusesAtom } from '../states/statusAtom';
 import { todosSelector } from '../states/todosSelector';
+import CreateStatus from './CreateStatus';
 import CreateTodo from './CreateTodo';
 import Todo from './Todo';
 
@@ -19,6 +20,7 @@ function TodoList() {
   return (
     <div>
       <h1>TODOLIST</h1>
+      <CreateStatus />
       <select onInput={handleInput}>
         {statuses.map((status) => (
           <option value={status}>{status}</option>
