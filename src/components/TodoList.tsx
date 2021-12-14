@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { ITodo, todosAtom, TodoStatus } from '../atoms/todosAtom';
+import Todo from './Todo';
 
 interface IForm {
   todo: string;
@@ -30,7 +31,7 @@ function TodoList() {
       </form>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.text}</li>
+          <Todo {...todo} />
         ))}
       </ul>
     </div>
