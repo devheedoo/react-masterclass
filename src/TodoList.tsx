@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 interface IForm {
   userId: string;
   password: string;
+  repassword: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -12,13 +13,19 @@ interface IForm {
 const EMAIL_DOMAIN_ALLOWED = '@gmail.com';
 
 function TodoList() {
-  const { register, handleSubmit, formState } = useForm<IForm>({
+  const { register, handleSubmit, formState, setError } = useForm<IForm>({
     defaultValues: {
       email: EMAIL_DOMAIN_ALLOWED,
     },
   });
-  const onValid = (data: IForm) => {
-    console.log(data);
+  const onValid = (inputValues: IForm) => {
+    if (inputValues.password !== inputValues.repassword) {
+      setError(
+        'repassword',
+        { message: 're-password should match password' },
+        { shouldFocus: true }
+      );
+    }
   };
 
   return (
@@ -42,6 +49,7 @@ function TodoList() {
           placeholder="ID"
         />
         <span>{formState.errors?.userId?.message}</span>
+
         <input
           {...register('password', {
             required: 'Password is required',
@@ -58,6 +66,14 @@ function TodoList() {
           placeholder="password"
         />
         <span>{formState.errors?.password?.message}</span>
+
+        <input
+          {...register('repassword')}
+          type="password"
+          placeholder="re-password"
+        />
+        <span>{formState.errors?.repassword?.message}</span>
+
         <input
           {...register('firstName', {
             required: 'first name is required',
@@ -69,6 +85,7 @@ function TodoList() {
           placeholder="first name"
         />
         <span>{formState.errors?.firstName?.message}</span>
+
         <input
           {...register('lastName', {
             required: 'last name is required',
@@ -80,6 +97,7 @@ function TodoList() {
           placeholder="last name"
         />
         <span>{formState.errors?.lastName?.message}</span>
+
         <input
           {...register('email', {
             required: 'Email is required',
@@ -91,6 +109,7 @@ function TodoList() {
           placeholder="email"
         />
         <span>{formState.errors?.email?.message}</span>
+
         <input
           {...register('username', {
             required: 'Username is required',
@@ -106,6 +125,7 @@ function TodoList() {
           placeholder="username"
         />
         <span>{formState.errors?.username?.message}</span>
+
         <button>add</button>
       </form>
     </div>
