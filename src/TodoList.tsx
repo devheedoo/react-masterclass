@@ -15,19 +15,13 @@ const EMAIL_DOMAIN_ALLOWED = '@gmail.com';
 const IS_API_SERVER_LIVE = true;
 
 function TodoList() {
-  const { register, handleSubmit, formState, setError } = useForm<IForm>({
-    defaultValues: {
-      email: EMAIL_DOMAIN_ALLOWED,
-    },
-  });
+  const { register, handleSubmit, formState, setError, getValues } =
+    useForm<IForm>({
+      defaultValues: {
+        email: EMAIL_DOMAIN_ALLOWED,
+      },
+    });
   const onValid = (inputValues: IForm) => {
-    if (inputValues.password !== inputValues.repassword) {
-      setError(
-        'repassword',
-        { message: 're-password should match password' },
-        { shouldFocus: true }
-      );
-    }
     if (!IS_API_SERVER_LIVE) {
       setError('serverError', { message: 'API server is not working' });
     }
@@ -73,7 +67,13 @@ function TodoList() {
         <span>{formState.errors?.password?.message}</span>
 
         <input
-          {...register('repassword')}
+          {...register('repassword', {
+            required: 'Re-password is required',
+            validate: (repassword) =>
+              repassword !== getValues().password
+                ? 're-password should match password'
+                : true,
+          })}
           type="password"
           placeholder="re-password"
         />
