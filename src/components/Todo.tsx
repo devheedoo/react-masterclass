@@ -1,10 +1,12 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { ITodo } from '../interfaces';
+import { statusesAtom } from '../states/statusAtom';
 import { todosAtom } from '../states/todosAtom';
 
 function Todo({ id, text, status }: ITodo) {
   const setTodos = useSetRecoilState(todosAtom);
+  const statuses = useRecoilValue(statusesAtom);
   const handleClick = (event: React.FormEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
@@ -24,19 +26,11 @@ function Todo({ id, text, status }: ITodo) {
   return (
     <li>
       <span>{text}</span>
-      <button name={'todo'} onClick={handleClick} disabled={status === 'todo'}>
-        TODO
-      </button>
-      <button
-        name={'doing'}
-        onClick={handleClick}
-        disabled={status === 'doing'}
-      >
-        DOING
-      </button>
-      <button name={'done'} onClick={handleClick} disabled={status === 'done'}>
-        DONE
-      </button>
+      {statuses.map((s) => (
+        <button name={s} onClick={handleClick} disabled={s === status}>
+          {s}
+        </button>
+      ))}
     </li>
   );
 }
