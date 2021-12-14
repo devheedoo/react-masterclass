@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { statusAtom, todosSelector, TodoStatus } from '../atoms/todosAtom';
+import { statusAtom, todosSelector } from '../atoms/todosAtom';
 import CreateTodo from './CreateTodo';
 import Todo from './Todo';
 
@@ -11,18 +11,16 @@ function TodoList() {
     const {
       currentTarget: { value },
     } = event;
-    setStatus(value as TodoStatus);
+    setStatus(value);
   };
 
   return (
     <div>
       <h1>TODOLIST</h1>
       <select onInput={handleInput}>
-        {Object.entries(TodoStatus).map(([key, value]) => (
-          <option key={value} value={value}>
-            {key}
-          </option>
-        ))}
+        <option value={'todo'}>todo</option>
+        <option value={'doing'}>doing</option>
+        <option value={'done'}>done</option>
       </select>
       <CreateTodo />
       <div style={{ marginTop: 10 }}>

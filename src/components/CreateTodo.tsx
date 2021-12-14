@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-import { ITodo, todosAtom, TodoStatus } from '../atoms/todosAtom';
+import { ITodo, todosAtom } from '../atoms/todosAtom';
 
 interface IForm {
   todo: string;
@@ -14,7 +14,7 @@ function CreateTodo() {
     const newTodo: ITodo = {
       id: new Date().getTime(),
       text: todo,
-      status: TodoStatus.TODO,
+      status: 'todo',
     };
     setTodos((currentTodos) => [newTodo, ...currentTodos]);
     setValue('todo', '');
