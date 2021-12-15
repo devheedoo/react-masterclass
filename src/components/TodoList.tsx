@@ -17,7 +17,7 @@ function TodoList() {
   const setTodos = useSetRecoilState(todosAtom);
   const [statuses, setStatuses] = useRecoilState(statusesAtom);
 
-  const setStatus = useSetRecoilState(statusAtom);
+  const [status, setStatus] = useRecoilState(statusAtom);
   const handleInput = (event: React.FormEvent<HTMLSelectElement>) => {
     const {
       currentTarget: { value },
@@ -47,9 +47,11 @@ function TodoList() {
       <h1>TODOLIST</h1>
       <ClearLocalStorage />
       <CreateStatus />
-      <select onInput={handleInput}>
+      <select onInput={handleInput} value={status}>
         {statuses.map((status) => (
-          <option value={status}>{status}</option>
+          <option key={status} value={status}>
+            {status}
+          </option>
         ))}
       </select>
       <CreateTodo />
