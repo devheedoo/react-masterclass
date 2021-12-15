@@ -15,11 +15,13 @@ function Todo({ id, text, status }: ITodo) {
     setTodos((todos) => {
       const currentIndex = todos.findIndex((todo) => todo.id === id);
       const newTodo = { id, text, status: name };
-      return [
+      const newTodos = [
         ...todos.slice(0, currentIndex),
         newTodo,
         ...todos.slice(currentIndex + 1),
       ];
+      window.localStorage.setItem('todos', JSON.stringify(newTodos));
+      return newTodos;
     });
   };
 
