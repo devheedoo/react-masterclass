@@ -1,12 +1,12 @@
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from "recoil";
 import {
   DEFAULT_STATUSES,
   statusAtom,
   statusesAtom,
-} from '../states/statusAtom';
-import { todosAtom } from '../states/todosAtom';
+} from "../states/statusAtom";
+import { todosAtom } from "../states/todosAtom";
 
-function SaveAndClearLocalStorage() {
+function ClearLocalStorage() {
   const setTodos = useSetRecoilState(todosAtom);
   const setStatuses = useSetRecoilState(statusesAtom);
   const setStatus = useSetRecoilState(statusAtom);
@@ -30,4 +30,4 @@ function SaveAndClearLocalStorage() {
   );
 }
 
-export default SaveAndClearLocalStorage;
+export default ClearLocalStorage;
