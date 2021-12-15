@@ -9,7 +9,7 @@ import { todosAtom } from '../states/todosAtom';
 import { todosSelector } from '../states/todosSelector';
 import CreateStatus from './CreateStatus';
 import CreateTodo from './CreateTodo';
-import SaveAndClearLocalStorage from './SaveAndClearLocalStorage';
+import ClearLocalStorage from './ClearLocalStorage';
 import Todo from './Todo';
 
 function TodoList() {
@@ -45,7 +45,7 @@ function TodoList() {
   return (
     <div>
       <h1>TODOLIST</h1>
-      <SaveAndClearLocalStorage />
+      <ClearLocalStorage />
       <CreateStatus />
       <select onInput={handleInput}>
         {statuses.map((status) => (
