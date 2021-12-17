@@ -9,13 +9,12 @@ const Wrapper = styled(motion.div)`
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #81ecec, #c23699);
-  flex-direction: column;
 `;
 
 const WhiteBox = styled(motion.div)`
   position: absolute;
   top: 250px;
-  width: 300px;
+  width: 100px;
   height: 100px;
   background-color: rgba(255, 255, 255, 0.7);
   margin: 10px;
@@ -27,35 +26,45 @@ const WhiteBox = styled(motion.div)`
 `;
 
 const boxVariants: Variants = {
-  start: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0 },
-  invisible: { opacity: 0, y: 10 },
+  initial: { opacity: 0, x: 200, scale: 0.5 },
+  animate: { opacity: 1, x: 0, scale: 1 },
+  exit: { opacity: 0, x: -200, scale: 0.5 },
 };
 
 function App() {
-  const [isShowing, setShowing] = useState(false);
-  const toggleShowing = () => {
-    setShowing((curr) => !curr);
+  const [contentIndex, setContentIndex] = useState(0);
+  const contents = ['A', 'B', 'C', 'D', 'E'];
+  const showNextContent = () => {
+    setContentIndex((prev) => (prev === contents.length - 1 ? 0 : prev + 1));
+  };
+  const showPrevContent = () => {
+    setContentIndex((prev) => (prev === 0 ? contents.length - 1 : prev - 1));
   };
   return (
     <Wrapper>
       <AnimatePresence>
-        {isShowing ? (
-          <WhiteBox
-            variants={boxVariants}
-            initial="start"
-            animate="visible"
-            exit="invisible"
-            transition={{
-              default: { duration: 1 },
-              opacity: { duration: 0.5 },
-            }}
-          >
-            Hello!
-          </WhiteBox>
-        ) : null}
+        {contents.map((content, index) => {
+          if (index === contentIndex)
+            return (
+              <WhiteBox
+                variants={boxVariants}
+                initial="initial"
+                animate="animate"
+                transition={{
+                  default: { duration: 1 },
+                  opacity: { duration: 0.5 },
+                }}
+                exit="exit"
+                key={content}
+              >
+                {content}
+              </WhiteBox>
+            );
+          else return null;
+        })}
       </AnimatePresence>
-      <button onClick={toggleShowing}>Toggle</button>
+      <button onClick={showPrevContent}>prev</button>
+      <button onClick={showNextContent}>next</button>
     </Wrapper>
   );
 }
