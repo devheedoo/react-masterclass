@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -20,7 +20,10 @@ const Box = styled(motion.div)`
 function App() {
   return (
     <Wrapper>
-      <Box />
+      <Box
+        whileHover={{ scale: 1.5, rotateZ: 90 }}
+        whileTap={{ scale: 1, borderRadius: '100px' }}
+      />
     </Wrapper>
   );
 }
