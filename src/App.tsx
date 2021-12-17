@@ -10,11 +10,21 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled(motion.div)`
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+`;
+
+const Circle = styled(motion.div)`
+  width: 70px;
+  height: 70px;
+  place-self: center;
+  border-radius: 35px;
   background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 `;
 
 const boxAnimation = {
@@ -25,7 +35,12 @@ const boxAnimation = {
 function App() {
   return (
     <Wrapper>
-      <Box variants={boxAnimation} initial="start" animate="end" />
+      <Box variants={boxAnimation} initial="start" animate="end">
+        <Circle />
+        <Circle />
+        <Circle />
+        <Circle />
+      </Box>
     </Wrapper>
   );
 }
