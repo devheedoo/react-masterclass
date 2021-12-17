@@ -31,8 +31,9 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
   body {
-    line-height: 1;
     font-family: 'Ubuntu', sans-serif;
+    line-height: 1.2;
+    background:linear-gradient(135deg,tomato,brown);
   }
   ol, ul {
     list-style: none;
