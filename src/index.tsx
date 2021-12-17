@@ -33,7 +33,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Ubuntu', sans-serif;
     line-height: 1.2;
-    background:linear-gradient(135deg,#81ecec,#c23699);
   }
   ol, ul {
     list-style: none;
