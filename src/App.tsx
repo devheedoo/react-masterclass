@@ -14,6 +14,7 @@ const Box = styled(motion.div)`
   height: 100px;
   background-color: white;
   border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 `;
 
 function App() {
