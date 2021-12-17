@@ -12,8 +12,6 @@ const Wrapper = styled(motion.div)`
 `;
 
 const WhiteBox = styled(motion.div)`
-  position: absolute;
-  top: 250px;
   width: 100px;
   height: 100px;
   background-color: rgba(255, 255, 255, 0.7);
@@ -25,52 +23,10 @@ const WhiteBox = styled(motion.div)`
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 `;
 
-const boxVariants: Variants = {
-  initial: (movesRight: boolean) => ({
-    opacity: 0,
-    x: movesRight ? 200 : -200,
-    scale: 0.5,
-  }),
-  animate: { opacity: 1, x: 0, scale: 1 },
-  exit: (movesRight: boolean) => ({
-    opacity: 0,
-    x: movesRight ? -200 : 200,
-    scale: 0.5,
-  }),
-};
-
 function App() {
-  const contents = ['A', 'B', 'C', 'D', 'E'];
-  const [contentIndex, setContentIndex] = useState(0);
-  const [movesRight, setMoveRight] = useState(true);
-  const showNextContent = () => {
-    setMoveRight(true);
-    setContentIndex((prev) => (prev === contents.length - 1 ? 0 : prev + 1));
-  };
-  const showPrevContent = () => {
-    setMoveRight(false);
-    setContentIndex((prev) => (prev === 0 ? contents.length - 1 : prev - 1));
-  };
   return (
     <Wrapper>
-      <AnimatePresence custom={movesRight}>
-        <WhiteBox
-          custom={movesRight}
-          variants={boxVariants}
-          initial="initial"
-          animate="animate"
-          transition={{
-            default: { duration: 1 },
-            opacity: { duration: 0.5 },
-          }}
-          exit="exit"
-          key={contentIndex}
-        >
-          {contents[contentIndex]}
-        </WhiteBox>
-      </AnimatePresence>
-      <button onClick={showPrevContent}>prev</button>
-      <button onClick={showNextContent}>next</button>
+      <WhiteBox></WhiteBox>
     </Wrapper>
   );
 }
