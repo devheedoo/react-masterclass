@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -25,21 +25,37 @@ const Circle = styled(motion.div)`
   place-self: center;
   border-radius: 35px;
   background-color: white;
+  opacity: 0.5;
 `;
 
-const boxAnimation = {
-  start: { scale: 0 },
-  end: { scale: 1, rotateZ: 360, transition: { type: 'spring', delay: 0.5 } },
+const boxAnimation: Variants = {
+  start: { scale: 0.0, opacity: 0 },
+  end: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      bounce: 0.5,
+      duration: 0.5,
+      delayChildren: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const circleAnimation = {
+  start: { opacity: 0, y: 10 },
+  end: { opacity: 0.5, y: 0 },
 };
 
 function App() {
   return (
     <Wrapper>
       <Box variants={boxAnimation} initial="start" animate="end">
-        <Circle />
-        <Circle />
-        <Circle />
-        <Circle />
+        <Circle variants={circleAnimation} />
+        <Circle variants={circleAnimation} />
+        <Circle variants={circleAnimation} />
+        <Circle variants={circleAnimation} />
       </Box>
     </Wrapper>
   );
