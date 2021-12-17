@@ -32,8 +32,8 @@ const boxVariants: Variants = {
 };
 
 function App() {
-  const [contentIndex, setContentIndex] = useState(0);
   const contents = ['A', 'B', 'C', 'D', 'E'];
+  const [contentIndex, setContentIndex] = useState(0);
   const showNextContent = () => {
     setContentIndex((prev) => (prev === contents.length - 1 ? 0 : prev + 1));
   };
@@ -43,25 +43,19 @@ function App() {
   return (
     <Wrapper>
       <AnimatePresence>
-        {contents.map((content, index) => {
-          if (index === contentIndex)
-            return (
-              <WhiteBox
-                variants={boxVariants}
-                initial="initial"
-                animate="animate"
-                transition={{
-                  default: { duration: 1 },
-                  opacity: { duration: 0.5 },
-                }}
-                exit="exit"
-                key={content}
-              >
-                {content}
-              </WhiteBox>
-            );
-          else return null;
-        })}
+        <WhiteBox
+          variants={boxVariants}
+          initial="initial"
+          animate="animate"
+          transition={{
+            default: { duration: 1 },
+            opacity: { duration: 0.5 },
+          }}
+          exit="exit"
+          key={contentIndex}
+        >
+          {contents[contentIndex]}
+        </WhiteBox>
       </AnimatePresence>
       <button onClick={showPrevContent}>prev</button>
       <button onClick={showNextContent}>next</button>
