@@ -1,4 +1,5 @@
 import { motion, Variants } from 'framer-motion';
+import { Link, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -36,6 +37,7 @@ const Items = styled.ul`
 const Item = styled.li`
   color: rgba(255, 255, 255, 1);
   margin-right: 20px;
+  position: relative;
 `;
 
 const Search = styled.span`
@@ -45,12 +47,28 @@ const Search = styled.span`
   }
 `;
 
+const NavigationCircle = styled(motion.span)`
+  // shape
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.red};
+  // position
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: -12px;
+`;
+
 const logoVariants: Variants = {
   initial: { fillOpacity: 1 },
   hover: { fillOpacity: [0, 1, 0], transition: { repeat: Infinity } },
 };
 
 export default function Header() {
+  const matchesHome = useRouteMatch('/')?.isExact;
+  const matchesTVShows = useRouteMatch('/tv_shows');
   return (
     <Wrapper>
       <Column>
@@ -85,8 +103,18 @@ export default function Header() {
           />
         </Logo>
         <Items>
-          <Item>Home</Item>
-          <Item>TV Shows</Item>
+          <Item>
+            <Link to="/">Home</Link>
+            {matchesHome ? (
+              <NavigationCircle layoutId="navigationCircle" />
+            ) : null}
+          </Item>
+          <Item>
+            <Link to="/tv_shows">TV Shows</Link>
+            {matchesTVShows ? (
+              <NavigationCircle layoutId="navigationCircle" />
+            ) : null}
+          </Item>
         </Items>
       </Column>
       <Column>

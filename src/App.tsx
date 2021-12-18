@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './Components/Header';
 import Home from './Routes/Home';
 import Search from './Routes/Search';
-import Tv from './Routes/Tv';
+import TVShows from './Routes/TVShows';
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
         <Route path={'/search'}>
           <Search />
         </Route>
-        <Route path={'/tv'}>
-          <Tv />
+        <Route path={'/tv_shows'}>
+          <TVShows />
         </Route>
       </Switch>
     </Router>
