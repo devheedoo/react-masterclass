@@ -1,3 +1,5 @@
+import { AnimatePresence, motion, Variants } from 'framer-motion';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { fetchMoviesNowPlaying, IMoviesNowPlaying } from '../api';
@@ -26,17 +28,57 @@ const Title = styled.h2`
   margin-bottom: 10px;
   font-weight: bold;
 `;
+
 const Overview = styled.p`
   font-size: 18px;
   width: 70%;
 `;
+
+const Slider = styled.div`
+  position: relative;
+  background-color: red;
+`;
+
+const Row = styled(motion.div)`
+  position: absolute;
+  display: grid;
+  width: 100%;
+  gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
+`;
+
+const Box = styled(motion.div)`
+  background-color: rgba(255, 255, 255, 1);
+  color: black;
+  flex: 1;
+  height: 120px;
+`;
+
+const rowVariants: Variants = {
+  initial: { x: window.outerWidth + 10 },
+  animate: { x: 0 },
+  exit: { x: -window.outerWidth - 10 },
+};
 
 export default function Home() {
   const { data, isLoading } = useQuery<IMoviesNowPlaying>(
     ['movie', 'now_playing'],
     fetchMoviesNowPlaying
   );
-  const movieOfBanner = data?.results[0];
+  const [movieOfBanner, ...moviesOfSlider] = data?.results ?? [];
+
+  const sampleSlide = [1, 2, 3, 4, 5, 6];
+
+  const [isExitingSlide, setExitingSlide] = useState(false);
+  const handleExitComplete = () => setExitingSlide(false);
+
+  const [sliderIndex, setSliderIndex] = useState(0);
+  const showNextSlide = () => {
+    if (isExitingSlide) return;
+    setExitingSlide(true);
+    setSliderIndex((prev) => (prev === sampleSlide.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -47,6 +89,25 @@ export default function Home() {
             <Title>{movieOfBanner?.title ?? ''}</Title>
             <Overview>{movieOfBanner?.overview ?? ''}</Overview>
           </Banner>
+          <Slider onClick={showNextSlide}>
+            <AnimatePresence
+              initial={false}
+              onExitComplete={handleExitComplete}
+            >
+              <Row
+                variants={rowVariants}
+                initial="initial"
+                animate="animate"
+                transition={{ type: 'tween', duration: 0.5 }}
+                exit="exit"
+                key={sliderIndex}
+              >
+                {sampleSlide.map((e) => (
+                  <Box key={e}>{e}</Box>
+                ))}
+              </Row>
+            </AnimatePresence>
+          </Slider>
         </>
       )}
     </Wrapper>
