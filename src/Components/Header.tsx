@@ -1,9 +1,14 @@
-import { motion, Variants } from 'framer-motion';
-import { useState } from 'react';
+import {
+  motion,
+  useAnimation,
+  useViewportScroll,
+  Variants,
+} from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   width: 100%;
   height: 100px;
   position: fixed;
@@ -104,6 +109,11 @@ const logoVariants: Variants = {
   hover: { fillOpacity: [0, 1, 0], transition: { repeat: Infinity } },
 };
 
+const wrapperBackgroundVariants: Variants = {
+  top: { background: 'rgba(0,0,0,0)' },
+  scrolled: { background: 'rgba(0,0,0,1)' },
+};
+
 export default function Header() {
   const matchesHome = useRouteMatch('/')?.isExact;
   const matchesTVShows = useRouteMatch('/tv_shows');
@@ -111,8 +121,21 @@ export default function Header() {
   const [isSearching, setSearching] = useState(false);
   const toggleSearching = () => setSearching((prev) => !prev);
 
+  const wrapperBackgroundAnimation = useAnimation();
+  const { scrollY } = useViewportScroll();
+  useEffect(() => {
+    scrollY.onChange(() => {
+      if (scrollY.get() > 80) wrapperBackgroundAnimation.start('scrolled');
+      else wrapperBackgroundAnimation.start('top');
+    });
+  }, [scrollY]);
+
   return (
-    <Wrapper>
+    <Wrapper
+      variants={wrapperBackgroundVariants}
+      initial={{ background: 'rgba(0,0,0,0)' }}
+      animate={wrapperBackgroundAnimation}
+    >
       <Column>
         <Logo
           variants={logoVariants}
