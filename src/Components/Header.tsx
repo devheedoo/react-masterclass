@@ -1,4 +1,5 @@
 import { motion, Variants } from 'framer-motion';
+import { useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -40,10 +41,47 @@ const Item = styled.li`
   position: relative;
 `;
 
-const Search = styled.span`
+const Search = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  position: relative;
   color: rgba(255, 255, 255, 1);
   svg {
     height: 25px;
+  }
+`;
+
+const SearchSvg = styled(motion.svg)`
+  width: 18px;
+  height: 18px;
+  fill: rgba(255, 255, 255, 1);
+  position: relative;
+`;
+
+const SearchSvgAlone = styled(SearchSvg)`
+  position: absolute;
+  right: 0;
+`;
+
+const SearchBox = styled(motion.div)`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 210px;
+  height: 32px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  transform-origin: center right;
+`;
+
+const SearchInput = styled(motion.input)`
+  width: 180px;
+  height: 24px;
+  border: none;
+  background-color: transparent;
+  transform-origin: center right;
+  ::placeholder {
+    color: rgba(255, 255, 255, 0.7);
   }
 `;
 
@@ -69,6 +107,10 @@ const logoVariants: Variants = {
 export default function Header() {
   const matchesHome = useRouteMatch('/')?.isExact;
   const matchesTVShows = useRouteMatch('/tv_shows');
+
+  const [isSearching, setSearching] = useState(false);
+  const toggleSearching = () => setSearching((prev) => !prev);
+
   return (
     <Wrapper>
       <Column>
@@ -119,18 +161,27 @@ export default function Header() {
       </Column>
       <Column>
         <Search>
-          <svg
-            fill="currentColor"
+          <SearchSvgAlone
+            layoutId="searchIcon"
+            animate={{ x: isSearching ? -185 : 0 }}
+            transition={{ type: 'linear' }}
+            onClick={toggleSearching}
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
+            <motion.path
               fillRule="evenodd"
               d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817
                 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
               clipRule="evenodd"
-            ></path>
-          </svg>
+            ></motion.path>
+          </SearchSvgAlone>
+          <SearchBox
+            animate={{ scaleX: isSearching ? 1 : 0 }}
+            transition={{ type: 'linear' }}
+          >
+            <SearchInput type="text" placeholder="Search..." />
+          </SearchBox>
         </Search>
       </Column>
     </Wrapper>
