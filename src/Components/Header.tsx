@@ -1,3 +1,4 @@
+import { motion, Variants } from 'framer-motion';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -19,10 +20,11 @@ const Column = styled.div`
   align-items: center;
 `;
 
-const Logo = styled.svg`
+const Logo = styled(motion.svg)`
   width: 100px;
   height: 50px;
   margin-right: 50px;
+  fill: ${(props) => props.theme.red};
 `;
 
 const Items = styled.ul`
@@ -43,17 +45,26 @@ const Search = styled.span`
   }
 `;
 
+const logoVariants: Variants = {
+  initial: { fillOpacity: 1 },
+  hover: { fillOpacity: [0, 1, 0], transition: { repeat: Infinity } },
+};
+
 export default function Header() {
   return (
     <Wrapper>
       <Column>
         <Logo
+          variants={logoVariants}
+          initial="initial"
+          whileHover="hover"
           xmlns="http://www.w3.org/2000/svg"
           width="1024"
           height="276.742"
           viewBox="0 0 1024 276.742"
         >
-          <path
+          <motion.path
+            color=""
             d="M140.803 258.904c-15.404 2.705-31.079 3.516-47.294
               5.676l-49.458-144.856v151.073c-15.404 1.621-29.457 3.783-44.051
               5.945v-276.742h41.08l56.212
