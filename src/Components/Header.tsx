@@ -85,8 +85,9 @@ const SearchInput = styled(motion.input)`
   border: none;
   background-color: transparent;
   transform-origin: center right;
+  color: rgba(255, 255, 255, 0.7);
   ::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.4);
   }
 `;
 
@@ -185,9 +186,8 @@ export default function Header() {
       <Column>
         <Search>
           <SearchSvgAlone
-            layoutId="searchIcon"
             animate={{ x: isSearching ? -185 : 0 }}
-            transition={{ type: 'linear' }}
+            transition={{ type: 'tween' }}
             onClick={toggleSearching}
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +201,7 @@ export default function Header() {
           </SearchSvgAlone>
           <SearchBox
             animate={{ scaleX: isSearching ? 1 : 0 }}
-            transition={{ type: 'linear' }}
+            transition={{ type: 'tween' }}
           >
             <SearchInput type="text" placeholder="Search..." />
           </SearchBox>
