@@ -57,6 +57,5 @@
   "devDependencies": {
     "@types/react-helmet": "^6.1.4",
     "@types/styled-components": "^5.1.17"
-  },
-  "homepage": "https://devheedoo.github.io/react-masterclass"
+  }
 }
