@@ -35,6 +35,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     font-family: 'Ubuntu', sans-serif;
+    color: ${(props) => props.theme.white.lighter};
     line-height: 1.2;
   }
   ol, ul {
