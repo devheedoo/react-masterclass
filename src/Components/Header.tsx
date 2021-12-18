@@ -202,6 +202,7 @@ export default function Header() {
           <SearchBox
             animate={{ scaleX: isSearching ? 1 : 0 }}
             transition={{ type: 'tween' }}
+            initial={false}
           >
             <SearchInput type="text" placeholder="Search..." />
           </SearchBox>
