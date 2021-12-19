@@ -118,6 +118,7 @@ const wrapperBackgroundVariants: Variants = {
 
 export default function Header() {
   const matchesHome = useRouteMatch('/')?.isExact;
+  const matchesMovieId = useRouteMatch('/movie/:movieId');
   const matchesTVShows = useRouteMatch('/tv_shows');
 
   const [isSearching, setSearching] = useState(false);
@@ -172,7 +173,7 @@ export default function Header() {
         <Items>
           <Item>
             <Link to="/">Home</Link>
-            {matchesHome ? (
+            {matchesHome || matchesMovieId ? (
               <NavigationCircle layoutId="navigationCircle" />
             ) : null}
           </Item>

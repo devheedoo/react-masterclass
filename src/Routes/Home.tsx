@@ -1,8 +1,10 @@
-import { AnimatePresence, motion, Variants } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchMoviesNowPlaying, IMoviesNowPlaying } from '../api';
+import MovieSlider from '../Components/MovieSlider';
 import { makeMovieImageUrl } from '../utils';
 
 const SLIDER_OFFSET = Math.floor(window.innerWidth / 300);
@@ -37,72 +39,21 @@ const Overview = styled.p`
   width: 70%;
 `;
 
-const Slider = styled.div`
-  /* position: relative; */
-  background-color: red;
-`;
-
-const Row = styled(motion.div)<{ offset: number }>`
+const MovieDetailModal = styled(motion.div)`
   position: absolute;
-  display: grid;
-  width: 100%;
-  gap: 10px;
-  grid-template-columns: repeat(${(props) => props.offset}, 1fr);
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 40vw;
+  height: 40vw;
+  background-color: rgba(255, 255, 0, 0.8);
 `;
-
-const Box = styled(motion.div)<{ fileNameWithExtension: string }>`
-  aspect-ratio: 1.58;
-  position: relative;
-  flex: 1;
-  &:first-child {
-    transform-origin: center left;
-  }
-  &:last-child {
-    transform-origin: center right;
-  }
-  background-size: cover;
-  background-image: url(${(props) =>
-    makeMovieImageUrl(props.fileNameWithExtension, 300)});
-`;
-
-const BoxDescription = styled(motion.div)`
-  height: 50px;
-  background-color: ${(props) => props.theme.black.lighter};
-  opacity: 0;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  h4 {
-    text-align: center;
-    color: ${(props) => props.theme.white.darker};
-  }
-`;
-
-/* variants */
-const rowVariants: Variants = {
-  initial: { x: window.outerWidth + 10 },
-  animate: { x: 0 },
-  exit: { x: -window.outerWidth - 10 },
-};
-
-const boxVariants: Variants = {
-  initial: { scale: 1, y: 0 },
-  hover: {
-    scale: 1.2,
-    y: -80,
-    zIndex: 99,
-    transition: { delay: 0.3, duration: 0.3 },
-  },
-};
-
-const boxDescriptionVariants: Variants = {
-  hover: { opacity: 1, transition: { delay: 0.3, duration: 0.3 } },
-};
 
 export default function Home() {
+  const history = useHistory();
+  const matchesMovieId = useRouteMatch<{ movieId: string }>('/movie/:movieId');
+
   const { data, isLoading } = useQuery<IMoviesNowPlaying>(
     ['movie', 'now_playing'],
     fetchMoviesNowPlaying
@@ -120,55 +71,40 @@ export default function Home() {
     setSliderIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
   };
 
+  const moviesOnSlide = moviesOfSlider.slice(
+    SLIDER_OFFSET * sliderIndex,
+    SLIDER_OFFSET * (sliderIndex + 1)
+  );
+
+  const handleClickMovie = (movieId: number) => {
+    history.push(`/movie/${movieId}`);
+  };
+
   return (
     <Wrapper>
       {isLoading ? (
         <Loader></Loader>
       ) : (
         <>
-          <Banner fileNameWithExtension={movieOfBanner?.backdrop_path ?? ''}>
+          <Banner
+            onClick={showNextSlide}
+            fileNameWithExtension={movieOfBanner?.backdrop_path ?? ''}
+          >
             <Title>{movieOfBanner?.title ?? ''}</Title>
             <Overview>{movieOfBanner?.overview ?? ''}</Overview>
           </Banner>
-          <Slider onClick={showNextSlide}>
-            <AnimatePresence
-              initial={false}
-              onExitComplete={handleExitComplete}
-            >
-              <Row
-                offset={SLIDER_OFFSET}
-                variants={rowVariants}
-                initial="initial"
-                animate="animate"
-                transition={{ type: 'tween', duration: 0.5 }}
-                exit="exit"
-                key={sliderIndex}
-              >
-                {moviesOfSlider
-                  .slice(
-                    SLIDER_OFFSET * sliderIndex,
-                    SLIDER_OFFSET * (sliderIndex + 1)
-                  )
-                  .map((movie) => (
-                    <Box
-                      key={movie.id}
-                      fileNameWithExtension={movie.backdrop_path}
-                      variants={boxVariants}
-                      initial="initial"
-                      whileHover="hover"
-                      transition={{ type: 'tween' }}
-                    >
-                      <BoxDescription
-                        variants={boxDescriptionVariants}
-                        transition={{ type: 'tween' }}
-                      >
-                        <h4>{movie.title}</h4>
-                      </BoxDescription>
-                    </Box>
-                  ))}
-              </Row>
-            </AnimatePresence>
-          </Slider>
+          <MovieSlider
+            movies={moviesOnSlide}
+            pageIndex={sliderIndex}
+            pageOffset={SLIDER_OFFSET}
+            onClickMovie={handleClickMovie}
+            onExitComplete={handleExitComplete}
+          />
+          <AnimatePresence>
+            {matchesMovieId ? (
+              <MovieDetailModal layoutId={matchesMovieId?.params.movieId} />
+            ) : null}
+          </AnimatePresence>
         </>
       )}
     </Wrapper>

@@ -9,14 +9,14 @@ function App() {
     <Router>
       <Header />
       <Switch>
-        <Route exact path={'/'}>
-          <Home />
-        </Route>
         <Route path={'/search'}>
           <Search />
         </Route>
         <Route path={'/tv_shows'}>
           <TVShows />
+        </Route>
+        <Route path={['/', '/movies/:movieId']}>
+          <Home />
         </Route>
       </Switch>
     </Router>
