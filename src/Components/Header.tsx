@@ -19,6 +19,7 @@ const Wrapper = styled(motion.div)`
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  z-index: 100;
 `;
 
 const Column = styled.div`
