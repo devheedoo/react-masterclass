@@ -5,7 +5,8 @@ import {
   Variants,
 } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled(motion.div)`
@@ -69,7 +70,7 @@ const SearchSvgAlone = styled(SearchSvg)`
   right: 0;
 `;
 
-const SearchBox = styled(motion.div)`
+const SearchBox = styled(motion.form)`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -116,6 +117,10 @@ const wrapperBackgroundVariants: Variants = {
   scrolled: { background: 'rgba(0,0,0,1)' },
 };
 
+interface IForm {
+  keyword: string;
+}
+
 export default function Header() {
   const matchesHome = useRouteMatch('/')?.isExact;
   const matchesMovieId = useRouteMatch('/movie/:movieId');
@@ -132,6 +137,12 @@ export default function Header() {
       else wrapperBackgroundAnimation.start('top');
     });
   }, [scrollY]);
+
+  const { register, handleSubmit } = useForm<IForm>();
+  const history = useHistory();
+  const handleValid = (formData: IForm) => {
+    history.push(`/search?keyword=${formData.keyword}`);
+  };
 
   return (
     <Wrapper
@@ -202,11 +213,16 @@ export default function Header() {
             ></motion.path>
           </SearchSvgAlone>
           <SearchBox
+            onSubmit={handleSubmit(handleValid)}
             animate={{ scaleX: isSearching ? 1 : 0 }}
             transition={{ type: 'tween' }}
             initial={false}
           >
-            <SearchInput type="text" placeholder="Search..." />
+            <SearchInput
+              {...register('keyword', { required: true, minLength: 3 })}
+              type="text"
+              placeholder="Search..."
+            />
           </SearchBox>
         </Search>
       </Column>
