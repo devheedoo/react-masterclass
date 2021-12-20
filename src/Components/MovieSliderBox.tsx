@@ -4,7 +4,7 @@ import { makeMovieImageUrl } from '../utils';
 import { IMovieNowPlaying } from '../api';
 
 /* styled components */
-const Box = styled(motion.div)<{ fileNameWithExtension: string }>`
+const Box = styled(motion.div)<{ backgroundImageUrl: string }>`
   aspect-ratio: 1.58;
   position: relative;
   flex: 1;
@@ -15,8 +15,7 @@ const Box = styled(motion.div)<{ fileNameWithExtension: string }>`
     transform-origin: center right;
   }
   background-size: cover;
-  background-image: url(${(props) =>
-    makeMovieImageUrl(props.fileNameWithExtension, 300)});
+  background-image: url(${(props) => props.backgroundImageUrl});
 `;
 
 const BoxDescription = styled(motion.div)`
@@ -64,7 +63,7 @@ export default function MovieSliderBox({
       key={movie.id}
       layoutId={'' + movie.id}
       onClick={() => onClick(movie.id)}
-      fileNameWithExtension={movie.backdrop_path}
+      backgroundImageUrl={makeMovieImageUrl(movie.backdrop_path, 300)}
       variants={boxVariants}
       initial="initial"
       whileHover="hover"
